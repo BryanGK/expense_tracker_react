@@ -1,23 +1,23 @@
 import React from 'react';
 
-function Input(props) {
+const Input = ({ data, handleChange, handleSubmit }) => {
 
     return (
         <div className="container form-container">
-            <form className="input-field" onSubmit={props.handleSubmit}>
-                <div className="form-group row" style={{ marginTop: 20 }}>
+            <form className="input-field" onSubmit={handleSubmit}>
+                <div className="form-group row">
                     <label className="col-sm-3 col-form-label">Date:</label>
                     <div className="col-sm-9">
                         <input
                             className="form-control"
                             type="date"
                             name="date"
-                            value={props.data.date}
-                            onChange={props.handleChange}
+                            value={data.date}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
-                <div className="form-group row" style={{ marginTop: 20 }}>
+                <div className="form-group row">
                     <label className="col-sm-3 col-form-label">Location:</label>
                     <div className="col-sm-9">
                         <input
@@ -25,12 +25,12 @@ function Input(props) {
                             type="text"
                             name="location"
                             placeholder="Enter expense location"
-                            value={props.data.location}
-                            onChange={props.handleChange}
+                            value={data.location}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
-                <div className="form-group row" style={{ marginTop: 20 }}>
+                <div className="form-group row">
                     <label className="col-sm-3 col-form-label">Amount:</label>
                     <div className="col-sm-9">
                         <input
@@ -39,12 +39,12 @@ function Input(props) {
                             name="amount"
                             placeholder="Enter an amount"
                             step="0.01"
-                            value={props.data.amount}
-                            onChange={props.handleChange}
+                            value={data.amount}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
-                <div className="form-group row" style={{ marginTop: 20 }}>
+                <div className="form-group row">
                     <label className="col-sm-3 col-form-label">Description:</label>
                     <div className="col-sm-9">
                         <input
@@ -52,13 +52,13 @@ function Input(props) {
                             type="text"
                             name="description"
                             placeholder="Expense description"
-                            value={props.data.description}
-                            onChange={props.handleChange}
+                            value={data.description}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-6 offset-5" style={{ marginTop: 20 }}>
+                    <div className="col-6 offset-5">
                         <button className="btn btn-success">
                             Add to list
                     </button>

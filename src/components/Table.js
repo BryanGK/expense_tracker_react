@@ -1,26 +1,7 @@
 import React from 'react';
+import TableRow from './TableRow'
 
-function Table(props) {
-
-    const expenseArray = props.expenseArray
-    const tableRow = expenseArray.map(item => {
-        return (
-            <tr key={item.id}>
-                <td className="align-middle">{item.date} </td>
-                <td className="align-middle">{item.location}</td>
-                <td className="align-middle">${item.amount}</td>
-                <td className="align-middle">{item.description}</td>
-                <td className="delete-column">
-                    <button
-                        id={item.id}
-                        onClick={props.deleteRow}
-                        className="btn btn-danger align-middle btn-sm">
-                        X
-                    </button>
-                </td>
-            </tr>
-        )
-    })
+function Table({ expenseArray, deleteRow }) {
     return (
         <div className="container expense-table">
             <table className="table table-striped table-warning">
@@ -33,7 +14,7 @@ function Table(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {tableRow}
+                    <TableRow expenseArray={expenseArray} deleteRow={deleteRow} />
                 </tbody>
             </table>
         </div>

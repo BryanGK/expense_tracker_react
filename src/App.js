@@ -23,26 +23,15 @@ class App extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const localStorageExpenseArray = JSON.parse(localStorage.getItem("expenseArray")) || [];
-        const isFormFilled = (this.state.date !== "" && this.state.location !== "" && this.state.amount !== "" && this.state.description !== "");
-        if (isFormFilled) {
-            const expenseArray = this.state.expenseArray
-            const newExpense = {
-                id: Math.random(),
-                date: this.state.date,
-                location: this.state.location,
-                amount: this.state.amount,
-                description: this.state.description,
-            }
-            localStorageExpenseArray.push(newExpense);
-            localStorage.setItem("expenseArray", JSON.stringify(localStorageExpenseArray));
-            expenseArray.push(newExpense);
-            this.resetForm();
+        const newExpense = {
+            id: Math.random(),
+            date: this.state.date,
+            location: this.state.location,
+            amount: this.state.amount,
+            description: this.state.description,
         }
-    }
-
-    resetForm() {
         this.setState({
+            expenseArray: [...this.state.expenseArray, newExpense],
             date: "",
             location: "",
             amount: "",
@@ -57,20 +46,12 @@ class App extends React.Component {
         })
     }
 
-    deleteRow(event) {
-        const localStorageExpenseArray = JSON.parse(localStorage.getItem("expenseArray"))
-        const expenseArray = this.state.expenseArray
-        const target = parseFloat(event.target.id);
-        for (let i = 0; i < expenseArray.length; i++) {
-            if (target === expenseArray[i].id) {
-                expenseArray.splice(i, 1);
-                localStorageExpenseArray.splice(i, 1);
-            }
-        }
+    deleteRow(id) {
+        const expenseDeleted = this.state.expenseArray.filter(expense => expense.id !== id)
         this.setState({
-            expenseArray: expenseArray,
+            expenseArray: expenseDeleted,
         });
-        localStorage.setItem("expenseArray", JSON.stringify(localStorageExpenseArray));
+
     }
 
     componentDidMount() {
@@ -78,6 +59,11 @@ class App extends React.Component {
         this.setState({
             expenseArray: localStorageExpenseArray,
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.expenseArray !== prevState.expenseArray.length)
+            localStorage.setItem('expenseArray', JSON.stringify(this.state.expenseArray))
     }
 
     render() {
